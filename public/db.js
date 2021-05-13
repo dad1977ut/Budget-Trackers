@@ -1,9 +1,13 @@
-const { response } = require("express");
-
+const indexedDB =
+  window.indexedDB ||
+  window.mozIndexedDB ||
+  window.webkitIndexedDB ||
+  window.msIndexedDB ||
+  window.shimIndexedDB;
 let db;
-const request = indexedDB.open("budget", 1);
+const request = indexedDB.open("budget", 3);
 
-request.ounupgradeneeded = function (event) {
+request.onupgradeneeded = function (event) {
   const db = event.target.result;
   db.createObjectStore("pending", { autoIncrement: true });
 };
